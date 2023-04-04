@@ -2,8 +2,6 @@ credit_submit = 0
 credit_open = 0
 grade_submit = 0.0
 grade_open = 0.0
-count_submit = 0
-count_open = 0
 
 while(True):
     print("작업을 선택하세요.\n1. 입력\n2. 계산")
@@ -36,19 +34,16 @@ while(True):
             case 'F':
                 grade1 = 0.0
                 credit_submit -= int(credit)
-                grade_submit -= grade1
-                count_submit -= 1
+                grade_submit -= grade1 * int(credit)
 
         credit_submit += int(credit)
         credit_open += int(credit)
-        grade_submit += grade1
-        grade_open += grade1
-        count_submit += 1
-        count_open += 1
+        grade_submit += grade1 * int(credit)
+        grade_open += grade1 * int(credit)
 
     elif work=='2':
-        print("제출용: ", credit_submit, "학점 (GPA:", grade_submit / count_submit, ")", sep="")
-        print("열람용: ", credit_open, "학점 (GPA:", grade_open / count_open, ")", sep="")
+        print("제출용: ", credit_submit, "학점 (GPA:", grade_submit / credit_submit, ")", sep="")
+        print("열람용: ", credit_open, "학점 (GPA:", grade_open / credit_open, ")", sep="")
         print("\n프로그램을 종료합니다.")
 
         break
