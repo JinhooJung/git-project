@@ -1,3 +1,5 @@
-a = b = 0
-a += b += 4
-print (a,b)
+a = [1,2,3]
+print(a)
+
+a[1]=1122233
+print(a)
