@@ -28,11 +28,42 @@ class Subject:
 
     def inputting(self):
         print("과목명을 입력하세요:")
-        name = input()
+
+        try:
+            name = input()
+
+            if name == '':
+                raise ValueError("Error : 아무것도 입력되지 않았습니다.")
+        except ValueError as e:
+            print(str(e))
+            return 'error'
+
         print("학점을 입력하세요:")
-        credit = input()
+
+        try:
+            credit = input()
+
+            if credit == '':
+                raise ValueError("Error : 아무것도 입력되지 않았습니다.")
+            if not credit.isdigit():
+                raise ValueError("Error : 학점은 정수로 입력되어야 합니다.")
+        except ValueError as e:
+            print(str(e))
+            return 'error'
+
         print("평점을 입력하세요:")
-        grade = input()
+
+        try:
+            grade = input()
+
+            if grade == '':
+                raise ValueError("Error : 아무것도 입력되지 않았습니다.")
+            if grade not in ('A+', 'A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F'):
+                raise ValueError("Error : 평점은 [A+/A/B+/B/C+/C/D+/D/F]로 입력되어야 합니다.")
+        except ValueError as e:
+            print(str(e))
+            return 'error'
+
         print("입력되었습니다")
 
         return name, credit, grade
@@ -67,7 +98,11 @@ class Subject:
             self.grade_open -= self.get_grade(grade) * int(credit)
 
     def input_process(self):
-        self.subject_dict[self.subject_count], credit, grade = self.inputting()
+        input_test = self.inputting()
+        if not input_test == 'error':
+            self.subject_dict[self.subject_count], credit, grade = input_test
+        else:
+            return
 
         # 입력받은 과목명이 같은 지 아닌 지 판단한 후 retake 함수를 통해 학점을 비교하고 학점이 더 높아졌다면 오른 점수만큼 저장
         for i in range(len(self.subject_list)):
@@ -121,7 +156,7 @@ class Subject:
 subject = Subject()
 
 while True:
-    print("\n작업을 선택하세요.\n1. 입력\n2. 출력\n3. 조회\n4. 계산\n5. 종료")
+    print("\n작업을 선택하세요.\n1. 입력\n2. 출력\n3. 조회\n4. 계산\n5. 종료\n")
     work = input()
 
     if work == '1':
